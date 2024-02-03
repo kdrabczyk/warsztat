@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="rounded border border-white text-center d-flex align-items-center p-2">
             <router-link class="navbar-brand" to="/">
-            <img src="../assets/logo.jpg" alt="Logo" height="65" class="rounded d-inline-block align-text-top">
+            <img src="../assets/logo2.jpg" alt="Logo" height="65" class="rounded d-inline-block align-text-top">
           </router-link>
             <a>
                 <span class="text-center text-white">Warsztat u Henia</span>
