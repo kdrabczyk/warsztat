@@ -23,8 +23,8 @@
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.car }}</td>
                     <td>{{ service.name }}</td>
-                    <td>{{ service.orderDate }}</td>
-                    <td>{{ service.executionDate }}</td>
+                    <td>{{ formatDate(service.orderDate) }}</td>
+                    <td>{{ formatDate(service.executionDate) }}</td>
                     <td>{{ service.part }}</td>
                     <td>{{ service.status }}</td>
                     <td>Edytuj zamówienie nr {{ service.id  }}</td>
@@ -38,12 +38,26 @@
 </template>
 
 <script>
+import { formatDate } from 'date-fns';
 export default {
     name: 'Service',
     props: {
         dbServices: Array,
         User: Array
     },
+    methods: {
+    // Definiowanie formatowania daty- uwaga filtry już nie są wspierane w Vue 3
+    formatDate(value) {
+        if (value){
+            const date = new Date(value);
+        const formattedDate = formatDate(date, 'dd.MM.yyyy');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes} ${formattedDate}`;
+        }
+        }
+        
+  },
 
-}
+};
 </script>

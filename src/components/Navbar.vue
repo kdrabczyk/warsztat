@@ -1,4 +1,5 @@
 <template>
+  <div id="nabar">
   <nav class="navbar navbar-expand-md bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <div class="rounded border border-white text-center d-flex align-items-center p-2">
@@ -6,7 +7,7 @@
             <img src="../assets/logo2.jpg" alt="Logo" height="65" class="rounded d-inline-block align-text-top">
           </router-link>
             <a>
-                <span class="text-center text-white">Warsztat u Henia</span>
+                <span class="text-center text-white fw-bold">Wrenches & Chances</span>
             </a>
             </div>
   
@@ -30,7 +31,7 @@
       </ul>
     </div>
   </div>
-</nav>
+  </nav>
       <div class="bg-secondary ">
         <div class="d-flex flex-row" v-if="isLoggedIn !== false">
           <div class="p-2 flex-grow-1" v-if="User && User.name">Witaj {{User.name}}!</div>
@@ -42,6 +43,7 @@
           <router-link class="nav-link" to="/login"><button>Zaloguj się</button></router-link>
         </div>
       </div>
+  </div>
 </template>
 
 <script>

@@ -93,6 +93,7 @@ export default {
     },
     logOut() {
     this.isLoggedIn = false;
+
     this.User = {};
     this.$router.push('/login');
   }
@@ -219,6 +220,7 @@ export default {
   mounted() {
     this.fetchServices();
     this.fetchParts();
+    console.log(state);
   }
 }
 
