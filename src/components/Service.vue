@@ -9,7 +9,9 @@
             <thead>
                 <tr>
                     <th scope="col">Lp.</th>
-                    <th scope="col">Pojazd</th>
+                    <th scope="col">Marka</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Rejestracja</th>
                     <th scope="col">Usługa</th>
                     <th scope="col">Data przyjęcia</th>
                     <th scope="col">Data wykonania</th>
@@ -19,9 +21,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="service in dbServices" :key="service.id">
+                <tr v-for="service in $store.state.dbServices" :key="service.id">
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.car }}</td>
+                    <td>{{ service.model }}</td>
+                    <td>{{ service.plates }}</td>
                     <td>{{ service.name }}</td>
                     <td>{{ formatDate(service.orderDate) }}</td>
                     <td>{{ formatDate(service.executionDate) }}</td>
@@ -42,7 +46,6 @@ import { formatDate } from 'date-fns';
 export default {
     name: 'Service',
     props: {
-        dbServices: Array,
         User: Array
     },
     methods: {
@@ -55,9 +58,12 @@ export default {
         const minutes = date.getMinutes().toString().padStart(2, '0');
         return `${hours}:${minutes} ${formattedDate}`;
         }
-        }
-        
-  },
+        } 
+    },
+    mounted(){
+      this.$store.dispatch('fetchdbServices');
+    }
+    
 
 };
 </script>

@@ -14,6 +14,15 @@ name: 'addTimetable',
   props: {
     User: Object,
     },
+    emits: ['emitFetchServices'],
+  methods:{
+    emitFetchServices() {
+      this.$emit('emitFetchServices');
+    }
+  },
+  unmounted() {
+    this.emitFetchServices();
+  }
 }
 
 </script>

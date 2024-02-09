@@ -1,5 +1,5 @@
 <template>
-    <Service  :dbServices = "dbServices" :User="User"/>
+    <Service />
 </template>
 
 <script>
@@ -12,8 +12,6 @@ export default {
     
       //jaki propsy przyjmuje
       props: {
-        User: Array,
-        dbServices: Array,
         },
     }
 </script>

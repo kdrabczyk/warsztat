@@ -78,7 +78,7 @@
                     <button
                         type="submit"
                         class="bg-dark text-white rounded py-2 px-4 hover:bg-black"
-                        @click="registerUser"
+    
                     >
                         Zarejestruj się
                     </button>

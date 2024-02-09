@@ -77,28 +77,11 @@ data() {
         },
 
   methods: {
-  async handleLogin() {
-    
-    try {
-        const response = await axios.post('/api/User/Login', JSON.stringify(this.loginForm), {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-        });
-      if (response.data.success) {
-        this.$emit('isLoggedIN', response.data);
-         this.$router.push('/');
-        
-      } else {
-        this.loginError = 'Nieprawidłowe hasło';
-        
-      }
-      
-    } catch (error) {
-      console.error(error);
-      this.loginError = 'Wystąpił błąd podczas logowania';
+    handleLogin(){
+        this.$store.dispatch('logIn', this.loginForm)
+        //przekierowanie na stronę główną
+        this.$router.push('/')
     }
-  }
 }
 }
   </script>
