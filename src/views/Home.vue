@@ -27,6 +27,9 @@ name: 'Home',
   //jaki propsy przyjmuje
   props: {
     },
+    mounted(){
+      this.$store.dispatch('fetchdbServices');
+    },
 }
 
 

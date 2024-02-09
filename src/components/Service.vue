@@ -15,7 +15,7 @@
                     <th scope="col">Usługa</th>
                     <th scope="col">Data przyjęcia</th>
                     <th scope="col">Data wykonania</th>
-                    <th scope="col">Artykuły</th>
+                    <th scope="col">Numer id artykułu</th>
                     <th scope="col">Status</th>
                     <th scope="col">Edytuj</th>
                 </tr>
@@ -32,15 +32,15 @@
                     <td>{{ service.part }}</td>
                     <td>{{ service.status }}</td>
                     <td>
-                        <router-link class="nav-link" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj opis i część serwisową</button></router-link>
-                        <router-link 
+                       
+                        <router-link v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'"
                         :to="{ 
                             name: 'ServiceDetails', 
                             params: { id: service.id }}"
                         >
-                        DodajSzczegóły
+                        <button type="button" class="btn btn-success">Dodaj opis i część serwisową</button>
                         </router-link>
-                        <button v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE2'" type="button" class="btn btn-success">Zatwierdz wykonanie</button>
+                        <button @click="Zakończ(service.id)" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE2'" type="button" class="btn btn-success" >Zatwierdz wykonanie</button>
                         <router-link class="nav-link" v-else-if="user.role == 'CLIENT'" to="/addtimetable"><button type="button" class="btn btn-success">Reklamacja</button></router-link>
                     </td>
                 </tr>
@@ -53,6 +53,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import axios from 'axios';
 
 import { formatDate } from 'date-fns';
 export default {
@@ -72,12 +73,22 @@ export default {
         const minutes = date.getMinutes().toString().padStart(2, '0');
         return `${hours}:${minutes} ${formattedDate}`;
         }
-        } 
+        },
+    async Zakończ(idToSent) {
+        try{
+            const response2 = await axios.put('/api/Service/EndOrder', {id: idToSent});
+            console.log(response2.data);
+            this.$store.dispatch('fetchdbServices'); 
+        } catch (error) {
+        console.error(error);
+        }
+        
     },
     mounted(){
       this.$store.dispatch('fetchdbServices');
     }
     
 
-};
+},
+}
 </script>

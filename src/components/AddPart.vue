@@ -45,7 +45,6 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post('/api/Part', this.form);
-        console.log(response.data);
         this.$router.push('/warehouse');
       } catch (error) {
         console.error(error);

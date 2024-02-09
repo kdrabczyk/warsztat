@@ -1,5 +1,4 @@
 <template>
-    <p>{{ service.car }}</p>
     <AddServiceDetails :service="service"/>
 </template>
 

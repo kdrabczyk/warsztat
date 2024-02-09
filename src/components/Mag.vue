@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-           <tr v-for="item in Parts" :key="id">
+           <tr v-for="item in Parts" :key="item.id">
                             <th scope="row">{{ item.id}}</th>
                             <td>{{ item.name }}</td>
                             <td>{{ item.quantity }}</td>
@@ -41,28 +41,26 @@
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Lp.</th>
-                <th scope="col">Nazwa artykułu</th>
-                <th scope="col">Ilość dla usługi</th>
-                <th scope="col">Do przyjęcia usługi serwisowej nr</th>
-                <th scope="col">Data zamówienia</th>
-                <th scope="col">Data wydania na serwis</th>
+                <th scope="col">Numer id usługi</th>
+                <th scope="col">Nazwa usługi</th>
+                <th scope="col">Numer id artykułu</th>
+                <th scope="col">Nazwa artykułu potrzebnego do wykonania usługi</th>
+                <th scope="col">Data ostatniej zmiany statusu usługi</th>
                 <th scope="col">Status</th>
-                <th scope="col">Edytuj</th>
+                <th scope="col">Akcja magazyniera</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in serviceOrders" :key="id">
-                            <th scope="row">{{ item.id}}</th>
+              <tr v-for="item in warehouseServices" :key="item.id" >
+                            <th scope="row" >{{ item.id}}</th>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.quantity }}</td>
-                            <td>{{ item.serviceOrderNumber }}</td>
+                            <td>{{ item.part }}</td>
+                            <td>{{ Parts.find(part => part.id === item.part)?.name }}</td>
                             <td>{{ item.orderDate }}</td>
-                            <td>{{ item.executionDate }}</td>
                             <td>{{ item.status }}</td>
                             <td v-if="user.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
                                 <!--component gdzie wybiera się ilość wydawanych + dokument WW do bazy-->
-                                <a href="#"><button type="button" class="btn btn-primary">Wydaj na warsztat</button></a>
+                                <button type="button" class="btn btn-primary" @click="wydaj(item.part, item.id)">Wydaj na warsztat</button>
                             </td>
             </tr>
             </tbody>
@@ -74,17 +72,39 @@
 
 <script>
 import { mapState } from 'vuex';
+import axios from 'axios';
 
 export default {
     name: 'Mag',
     props: {
     },
     computed: {
-    ...mapState(['isLogged', 'user', 'Parts'])
+    ...mapState(['isLogged', 'user', 'Parts', 'dbServices']),
+  warehouseServices() {
+    return this.dbServices.filter(service => service.status === 'WAREHOUSE');
+  }
   },
   mounted() {
+    this.$store.dispatch('fetchdbServices');
     this.$store.dispatch('fetchParts');
   },
+  methods: {
+    async wydaj(partId, serviceId) {
+      try {
+        const response = await axios.put('/api/Warehouse', {partId: partId, partQuantity: 1});
+        
+        const response2 = await axios.put('/api/Warehouse/ChangeToService2Status', {id: serviceId});
+     
+        this.$store.dispatch('fetchParts');
+
+        this.$store.dispatch('fetchdbServices');
+        this.$router.push('/warehouse');
+        
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  }
   
     
 }
