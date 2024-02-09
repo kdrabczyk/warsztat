@@ -10,6 +10,7 @@ import Login from '../views/Login'
 import AddParts from '../views/AddParts'
 import Signup from '../views/Signup'
 import AddTimetable from '../views/AddTimetable'
+import AddServiceDetails from '../views/ServiceDetails'
 
 const routes = [
     {
@@ -62,6 +63,21 @@ const routes = [
         name:'About',
         component: About
     },
+    {
+        path: '/service/:id',
+        name: 'ServiceDetails',
+        component: AddServiceDetails,
+        props: (route) => {
+            // Pobierz sklep Vuex
+            const store = require('@/main.js').default;
+        
+            // Znajdź usługę o danym ID
+            const service = store.state.dbServices.find(service => service.id === Number(route.params.id));
+        
+            // Zwróć usługę jako props
+            return service ? service : false;
+          }
+      }
 ]
 
 const router = createRouter({

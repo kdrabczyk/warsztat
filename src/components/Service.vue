@@ -32,7 +32,14 @@
                     <td>{{ service.part }}</td>
                     <td>{{ service.status }}</td>
                     <td>
-                        <router-link class="nav-link" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj dane</button></router-link>
+                        <router-link class="nav-link" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj opis i część serwisową</button></router-link>
+                        <router-link 
+                        :to="{ 
+                            name: 'ServiceDetails', 
+                            params: { id: service.id }}"
+                        >
+                        DodajSzczegóły
+                        </router-link>
                         <button v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE2'" type="button" class="btn btn-success">Zatwierdz wykonanie</button>
                         <router-link class="nav-link" v-else-if="user.role == 'CLIENT'" to="/addtimetable"><button type="button" class="btn btn-success">Reklamacja</button></router-link>
                     </td>
