@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  <router-view @emitFetchParts="fetchParts" :serviceOrders="serviceOrders" :buyOrders="buyOrders" :mag="mag" :docs="docs"> </router-view>
+  <router-view> </router-view>
 
   <Footer />
 </template>

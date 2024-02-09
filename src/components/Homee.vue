@@ -8,9 +8,6 @@
 export default {
   name: 'Homee',
   props: {
-      mag: Array,
-      User: Array,
-      buyOrders: Array,
   },
 }
 </script>

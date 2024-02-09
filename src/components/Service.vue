@@ -31,22 +31,29 @@
                     <td>{{ formatDate(service.executionDate) }}</td>
                     <td>{{ service.part }}</td>
                     <td>{{ service.status }}</td>
-                    <td>Edytuj zamówienie nr {{ service.id  }}</td>
-                    <td></td>
+                    <td>
+                        <router-link class="nav-link" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj dane</button></router-link>
+                        <button v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE2'" type="button" class="btn btn-success">Zatwierdz wykonanie</button>
+                        <router-link class="nav-link" v-else-if="user.role == 'CLIENT'" to="/addtimetable"><button type="button" class="btn btn-success">Reklamacja</button></router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
     
-    <router-link class="nav-link" v-if="isLoggedIn !== false" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj zamówienie</button></router-link>
+    <router-link class="nav-link" v-if="this.$store.isLogged !== false" to="/addtimetable"><button type="button" class="btn btn-success">Dodaj zamówienie</button></router-link>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import { formatDate } from 'date-fns';
 export default {
     name: 'Service',
     props: {
-        User: Array
+    },
+    computed: {
+    ...mapState(['isLogged', 'user'])
     },
     methods: {
     // Definiowanie formatowania daty- uwaga filtry już nie są wspierane w Vue 3

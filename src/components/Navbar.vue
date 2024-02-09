@@ -17,13 +17,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" v-if="$store.state.isLoggedIn !== false" to="/" active-class="active">Przegląd</router-link>
+          <router-link class="nav-link" v-if="$store.state.isLogged !== false" to="/" active-class="active">Przegląd</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" v-if="$store.state.isLoggedIn !== false" to="/services">Usługa serwisowa</router-link>
+          <router-link class="nav-link" v-if="$store.state.isLogged !== false" to="/services">Usługa serwisowa</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" v-if="$store.state.isLoggedIn !== false" to="/warehouse">Magazyn</router-link>
+          <router-link class="nav-link" v-if="$store.state.isLogged == true && $store.state.user.role !== 'CLIENT'" to="/warehouse">Magazyn</router-link>
         </li>
       </ul>
     </div>
@@ -32,7 +32,13 @@
 
   <div class="bg-secondary ">
     <div class="d-flex flex-row" v-if="isLogged">
-      <div class="p-2 flex-grow-1" v-if="user && user.name">Witaj {{user.name}}!</div>
+      <div class="p-2 flex-grow-1" v-if="user && user.name">Witaj {{user.name}}! Zalogowałeś się jako 
+        <span v-if="user.role === 'CLIENT'">Klient</span>
+        <span v-else-if="user.role === 'ADMIN'">Administrator</span>
+        <span v-else-if="user.role === 'WAREHOUSEMAN'">Magazynier</span>
+        <span v-else-if="user.role === 'SERVICEMAN'">Serwisant</span>
+      
+      </div>
       <div class="p-2"><button @click="logOut">Wyloguj się</button></div>
     </div>
     <div class="d-flex flex-row" v-else>
