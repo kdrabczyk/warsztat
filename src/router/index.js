@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
+import store from '@/store';
 
 import Home from '../views/Home'
 import About from '../views/About'
@@ -11,6 +12,7 @@ import AddParts from '../views/AddParts'
 import Signup from '../views/Signup'
 import AddTimetable from '../views/AddTimetable'
 import AddServiceDetails from '../views/ServiceDetails'
+import ServiceDetails from '../views/ServiceDetails'
 
 const routes = [
     {
@@ -66,16 +68,12 @@ const routes = [
     {
         path: '/service/:id',
         name: 'ServiceDetails',
-        component: AddServiceDetails,
+        component: ServiceDetails,
         props: (route) => {
-            // Pobierz sklep Vuex
-            const store = require('@/main.js').default;
-        
             // Znajdź usługę o danym ID
             const service = store.state.dbServices.find(service => service.id === Number(route.params.id));
-        
             // Zwróć usługę jako props
-            return service ? service : false;
+            return {service: service ? service : false};
           }
       }
 ]

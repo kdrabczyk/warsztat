@@ -1,5 +1,6 @@
 <template>
-    <AddServiceDetails />
+    <p>{{ service.car }}</p>
+    <AddServiceDetails :service="service"/>
 </template>
 
 <script>
@@ -9,6 +10,12 @@ export default {
       components: {
         AddServiceDetails
       },
+      props: {
+        service: {
+            type: Object,
+            required: true
+        },
+    },
     
     }
 </script>
