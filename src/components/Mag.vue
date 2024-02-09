@@ -76,7 +76,6 @@
 export default {
     name: 'Mag',
     props: {
-        docs: Array,
         User: Array,
         mag: Array,
         serviceOrders: Array,
