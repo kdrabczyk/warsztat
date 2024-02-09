@@ -55,6 +55,7 @@ methods: {
         'Authorization': `Bearer ${this.$store.state.user.token}`
       }
       });
+      this.$store.dispatch('fetchdbServices');
       console.log(response);
       this.$router.push('/services');
     } catch (error) {

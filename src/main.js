@@ -9,6 +9,7 @@ const store = createStore({
 
     state () {
         return {
+            Parts: [],
             dbServices: [],
             user:{
                 id: null,
@@ -54,12 +55,24 @@ const store = createStore({
             // Log out the user, then...
             commit('setUser', { id: null, name: null, token: null });
             commit('setIsLogged', false);
+          },
+          fetchParts({ commit }) {
+            axios.get('https://localhost:7275/api/Part/GetAll')
+              .then(response => {
+                commit('setParts', response.data);
+                
+              })
+              .catch(error => {
+                console.error('There was an error fetching the name:', error);
+              });
           },         
         
     },
 
     mutations: {
-        
+        setParts(state, Parts) {
+        state.Parts = Parts;
+        },
         setdbServices(state, dbServices) {
             state.dbServices = dbServices;
         },

@@ -20,8 +20,8 @@
             </form>
         </div>
           <a href="#"><button type="button" class="btn btn-success" @click="submitForm">Dodaj</button></a>
-            <a href="#"><button type="button" class="btn btn-danger" >Anuluj</button></a>
-        
+            <a href="#"></a>
+            <router-link class="nav-link"  to="/warehouse"><button type="button" class="btn btn-danger" >Anuluj</button></router-link>
     
 </template>
 

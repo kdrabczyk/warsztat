@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-           <tr v-for="item in mag" :key="id">
+           <tr v-for="item in Parts" :key="id">
                             <th scope="row">{{ item.id}}</th>
                             <td>{{ item.name }}</td>
                             <td>{{ item.quantity }}</td>
@@ -26,7 +26,7 @@
             </tr>          
         </tbody>        
       </table>
-      <div v-if="User.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
+      <div v-if="user.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
                                 <!--strona gdzie wybiera się część która już jest i dopisuje ilość, cenę + dokument do bazy-->
                                 <router-link class="nav-link" to="/addparts"><button type="button" class="btn btn-success">Dodaj na stan magazynu</button></router-link>
     </div>    
@@ -60,7 +60,7 @@
                             <td>{{ item.orderDate }}</td>
                             <td>{{ item.executionDate }}</td>
                             <td>{{ item.status }}</td>
-                            <td v-if="User.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
+                            <td v-if="user.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
                                 <!--component gdzie wybiera się ilość wydawanych + dokument WW do bazy-->
                                 <a href="#"><button type="button" class="btn btn-primary">Wydaj na warsztat</button></a>
                             </td>
@@ -73,12 +73,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'Mag',
     props: {
-        User: Array,
-        mag: Array,
-        serviceOrders: Array,
     },
+    computed: {
+    ...mapState(['isLogged', 'user', 'Parts'])
+  },
+  mounted() {
+    this.$store.dispatch('fetchParts');
+  },
+  
+    
 }
 </script>

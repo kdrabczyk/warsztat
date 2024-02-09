@@ -1,5 +1,5 @@
 <template>
-<Mag :serviceOrders="serviceOrders" :mag="mag" :User="User"/>
+<Mag/>
 </template>
 
 <script>
@@ -12,9 +12,6 @@ name: 'Warehouse',
 
   //jaki propsy przyjmuje
   props: {
-    User: Array,
-    mag: Array,
-    serviceOrders: Array
     },
 }
 </script>

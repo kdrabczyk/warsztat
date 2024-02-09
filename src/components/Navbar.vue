@@ -23,7 +23,7 @@
           <router-link class="nav-link" v-if="$store.state.isLogged !== false" to="/services">Usługa serwisowa</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" v-if="$store.state.isLogged == true && $store.state.user.role !== 'CLIENT'" to="/warehouse">Magazyn</router-link>
+          <router-link class="nav-link" v-if="$store.state.isLogged == true && $store.state.user.role !== 'CLIENT' && $store.state.user.role !== 'SERVICEMAN'" to="/warehouse">Magazyn</router-link>
         </li>
       </ul>
     </div>

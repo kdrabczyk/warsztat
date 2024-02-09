@@ -5,9 +5,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'Homee',
   props: {
+  },
+  computed: {
+    ...mapState(['isLogged', 'user'])
   },
 }
 </script>
