@@ -13,6 +13,7 @@ import Signup from '../views/Signup'
 import AddTimetable from '../views/AddTimetable'
 import AddServiceDetails from '../views/ServiceDetails'
 import ServiceDetails from '../views/ServiceDetails'
+import Margin from '../components/Margin'
 
 const routes = [
     {
@@ -75,7 +76,12 @@ const routes = [
             // Zwróć usługę jako props
             return {service: service ? service : false};
           }
-      }
+    },
+    {
+        path:'/margin',
+        name:'Margin',
+        component: Margin
+    },
 ]
 
 const router = createRouter({

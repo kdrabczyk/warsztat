@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="service in $store.state.dbServices" :key="service.id">
+                <tr v-if="this.user.role !== 'CLIENT'" v-for="service in $store.state.dbServices" :key="service.id">
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.car }}</td>
                     <td>{{ service.model }}</td>
@@ -44,6 +44,29 @@
                         <router-link class="nav-link" v-else-if="user.role == 'CLIENT'" to="/addtimetable"><button type="button" class="btn btn-success">Reklamacja</button></router-link>
                     </td>
                 </tr>
+                <tr v-if="this.user.role == 'CLIENT'" v-for="service in clientdbServices" :key="service.id">
+                    <th scope="row">{{ service.id }}</th>
+                    <td>{{ service.car }}</td>
+                    <td>{{ service.model }}</td>
+                    <td>{{ service.plates }}</td>
+                    <td>{{ service.name }}</td>
+                    <td>{{ formatDate(service.orderDate) }}</td>
+                    <td>{{ formatDate(service.executionDate) }}</td>
+                    <td>{{ service.part }}</td>
+                    <td>{{ service.status }}</td>
+                    <td>
+                       
+                        <router-link v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE1'"
+                        :to="{ 
+                            name: 'ServiceDetails', 
+                            params: { id: service.id }}"
+                        >
+                        <button type="button" class="btn btn-success">Dodaj opis i część serwisową</button>
+                        </router-link>
+                        <button @click="Zakończ(service.id)" v-if="user.role == 'SERVICEMAN' && service.status == 'SERVICE2'" type="button" class="btn btn-success" >Zatwierdz wykonanie</button>
+                        <router-link class="nav-link" v-else-if="user.role == 'CLIENT' && service.status == 'FINISHED'" to="/addtimetable"><button type="button" class="btn btn-success">Reklamacja</button></router-link>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -61,8 +84,11 @@ export default {
     props: {
     },
     computed: {
-    ...mapState(['isLogged', 'user'])
-    },
+    ...mapState(['isLogged', 'user', 'dbServices']),
+    clientdbServices() {
+        return this.dbServices.filter(service => service.userId === this.user.id);
+    }
+  },
     methods: {
     // Definiowanie formatowania daty- uwaga filtry już nie są wspierane w Vue 3
     formatDate(value) {

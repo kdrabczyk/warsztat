@@ -29,7 +29,10 @@
       <div v-if="user.role == 'WAREHOUSEMAN'" class="d-flex d-inline-block">
                                 <!--strona gdzie wybiera się część która już jest i dopisuje ilość, cenę + dokument do bazy-->
                                 <router-link class="nav-link" to="/addparts"><button type="button" class="btn btn-success">Dodaj na stan magazynu</button></router-link>
-    </div>    
+    
+                                <!--strona gdzie wybiera się część która już jest i dopisuje ilość, cenę + dokument do bazy-->
+                                <router-link class="nav-link" to="/margin"><button type="button" class="btn btn-danger">Zmień marże części</button></router-link>
+      </div>
   </div>
     
   <div class="container-fluid text-center rounded border border-black mt-2 p-3">

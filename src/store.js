@@ -38,6 +38,7 @@ const store = createStore({
                       token: response.data.token,
                       name: response.data.name,
                       role: response.data.role,
+                      id: response.data.id
                        /// DOPISAĆ ID ŻEBY WYLOGOWAĆ W WIDOKU SERVICE
                     });
                     commit('setIsLogged', true); // Add this line to set isLogged to true

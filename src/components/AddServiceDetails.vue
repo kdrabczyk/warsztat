@@ -68,6 +68,7 @@
       try {
         const response = await axios.put('/api/Service', this.form);
         console.log(response.data);
+        this.$store.dispatch('fetchdbServices');
         this.$router.push('/services');
       } catch (error) {
         console.error(error);
