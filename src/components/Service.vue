@@ -14,7 +14,7 @@
                     <th scope="col">Rejestracja</th>
                     <th scope="col">Usługa</th>
                     <th scope="col">Data przyjęcia</th>
-                    <th scope="col">Data wykonania</th>
+                    <th scope="col">Data ostatniej zmiany statusu</th>
                     <th scope="col">Numer id artykułu</th>
                     <th scope="col">Status</th>
                     <th scope="col">Edytuj</th>
@@ -108,7 +108,6 @@ export default {
         } catch (error) {
         console.error(error);
         }
-        
     },
     mounted(){
       this.$store.dispatch('fetchdbServices');
